@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registros del Middleware</title>
+    <link href="src/css/bootstrap.min.css" rel="stylesheet" />
+  </head>
+  <body>
+    <!-- Header de Bootstrap -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#"> Tabla de registros</a>
+    </nav>
+
+    <div class="container mt-5">
+      <!-- Centro la tabla usando clases de Bootstrap -->
+      <div class="d-flex justify-content-center">
+        <h1>Registros del Middleware</h1>
+      </div>
+
+      <!-- Tabla centrada -->
+      <div class="d-flex justify-content-center">
+        <table id="registrosTable" class="table">
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>URL</th>
+              <th>Método</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+    <footer class="bg-light text-center py-3">
+      <p>&copy; 2023.</p>
+    </footer>
+
+    <!-- Agrega las referencias a los archivos JavaScript de Bootstrap (jQuery primero, luego Popper.js y finalmente Bootstrap.js) -->
+    <script src="src/js/jquery-3.6.0.min.js"></script>
+    <script src="src/js/bootstrap.min.js"></script>
+    <script src="src/js/script.js"></script>
+
+    <script>
+      // Hacer una solicitud para obtener los registros en formato JSON
+      fetch("/registros")
+        .then((response) => response.json())
+        .then((registros) => {
+          // Llenar la tabla con los registros obtenidos
+          const tableBody = document.querySelector("#registrosTable tbody");
+          registros.forEach((registro) => {
+            const row = tableBody.insertRow();
+            row.insertCell().textContent = registro.fecha;
+            row.insertCell().textContent = registro.url;
+            row.insertCell().textContent = registro.metodo;
+          });
+        })
+        .catch((error) => console.error(error));
+    </script>
+  </body>
+</html>
+|
